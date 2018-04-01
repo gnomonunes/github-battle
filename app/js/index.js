@@ -6,13 +6,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello Fernando!</h1>
+        <h1>Hello {this.props.name}!</h1>
       </div>
     )
   }
 }
 
 ReactDOM.render(
-  <App />,
+  <App name="Fernando"/>,
   document.getElementById('app')
 )
