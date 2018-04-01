@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
 require('../css/index.css');
 
 class App extends React.Component {
@@ -10,6 +11,10 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+App.propTypes = {
+  name: PropTypes.string.isRequired
 }
 
 ReactDOM.render(
