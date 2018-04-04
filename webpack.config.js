@@ -18,5 +18,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'app/index.html'
     })
-  ]
+  ],
+  devServer: {
+    compress: true,
+    disableHostCheck: true
+  }
 }
