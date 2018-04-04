@@ -1,6 +1,6 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var Popular = require('./Popular');
+const React = require('react');
+const PropTypes = require('prop-types');
+const Popular = require('./Popular');
 
 class App extends React.Component {
   render() {

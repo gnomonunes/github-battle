@@ -1,7 +1,7 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var PropTypes = require('prop-types');
-var App = require('./components/App');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const PropTypes = require('prop-types');
+const App = require('./components/App');
 require('./index.css');
 
 ReactDOM.render(
