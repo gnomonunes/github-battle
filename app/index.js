@@ -1,10 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const PropTypes = require('prop-types');
-const App = require('./components/App');
-require('./index.css');
+import React from "react";
+import { render } from "react-dom";
+import App from "./components/App";
+import "./index.css";
 
-ReactDOM.render(
+render(
   <App name="Fernando"/>,
   document.getElementById('app')
 )

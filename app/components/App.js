@@ -1,6 +1,6 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const Popular = require('./Popular');
+import React from "react";
+import PropTypes from "prop-types";
+import Popular from "./Popular";
 
 class App extends React.Component {
   render() {
@@ -16,4 +16,4 @@ App.propTypes = {
   name: PropTypes.string.isRequired
 }
 
-module.exports = App;
+export default App;

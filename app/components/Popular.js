@@ -1,5 +1,5 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+import React from "react";
+import PropTypes from "prop-types";
 
 const LANGUAGES = ["All", "JavaScript", "Java", "Ruby", "Python", "PHP"];
 
@@ -9,10 +9,10 @@ const SelectLanguage = (props) => {
       {LANGUAGES.map(language => {
         return (
           <li
-          key={language}
-          onClick={props.onSelect.bind(null, language)}
-          style={props.selectedLanguage == language ? {color: '#d0021b'} : null}>
-          {language}
+            key={language}
+            onClick={props.onSelect.bind(null, language)}
+            style={props.selectedLanguage == language ? {color: '#d0021b'} : null}>
+            {language}
           </li>
         );
       })}
@@ -51,4 +51,4 @@ class Popular extends React.Component {
   }
 }
 
-module.exports = Popular;
+export default Popular;
