@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import GithubConnector from "../utils/github-connector";
 
 const LANGUAGES = ["All", "JavaScript", "Java", "Ruby", "Python", "PHP"];
 
@@ -25,6 +26,14 @@ SelectLanguage.propTypes = {
   onSelect: PropTypes.func.isRequired
 }
 
+const RepoGrid = (props) => {
+  return (
+    <ul>
+      {props.repos.map(repo => (<li key={repo.name}>{repo.name}</li>))}
+    </ul>
+  );
+}
+
 class Popular extends React.Component {
   constructor(props) {
     super(props);
@@ -36,8 +45,17 @@ class Popular extends React.Component {
     this.updateLanguage = this.updateLanguage.bind(this);
   }
 
+  componentDidMount() {
+    this.updateLanguage(this.state.selectedLanguage);
+  }
+
   updateLanguage(language) {
-    this.setState(() => ({ selectedLanguage: language }));
+    this.setState(() => ({ selectedLanguage: language, repos: null }));
+
+    GithubConnector.fetchPopularRepos(language)
+      .then((repos) => {
+        this.setState(() => ({repos}))
+      });
   }
 
   render() {
@@ -46,6 +64,11 @@ class Popular extends React.Component {
         <SelectLanguage
           selectedLanguage={this.state.selectedLanguage}
           onSelect={this.updateLanguage} />
+        {this.state.repos
+          ? <RepoGrid
+              repos={this.state.repos} />
+          :
+            <p>Loading</p>}
       </div>
     )
   }
