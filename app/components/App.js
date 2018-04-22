@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import Navigation from "./Navigation";
 import Home from "./Home";
@@ -12,9 +12,12 @@ class App extends React.Component {
       <Router>
         <div className="container">
           <Navigation />
-          <Route exact path="/" component={Home} />
-          <Route path="/battle" component={Battle} />
-          <Route path="/popular" component={Popular} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/battle" component={Battle} />
+            <Route path="/popular" component={Popular} />
+            <Route render={() => (<p>Not Found</p>)} />
+          </Switch>
         </div>
       </Router>
     )
