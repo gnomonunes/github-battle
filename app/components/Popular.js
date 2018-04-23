@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import GithubConnector from "../utils/github-connector";
 
@@ -6,90 +7,95 @@ const LANGUAGES = ["All", "JavaScript", "Java", "Ruby", "Python", "PHP"];
 
 const SelectLanguage = (props) => (
   <ul className="languages">
-    {LANGUAGES.map(language => {
-      return (
-        <li
-          key={language}
-          onClick={props.onSelect.bind(null, language)}
-          style={props.selectedLanguage == language ? {color: "#d0021b"} : null}>
-          {language}
-        </li>
-      );
-    })}
+    {LANGUAGES.map(language => (
+      <li key={language}>
+        <NavLink activeClassName="active" to={"/popular/"+  language}>{language}</NavLink>
+      </li>
+    ))}
   </ul>
 );
 
-SelectLanguage.propTypes = {
-  selectedLanguage: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired
-}
+// const RepoGrid = (props) => (
+//   <div>
+//     {props.language}
+//   </div>
+// );
 
-const RepoGrid = (props) => (
-  <ul className="popular-list">
-    {props.repos.map((repo, index) => {
-      return (
-        <li key={repo.name} className="popular-item">
-          <div className="popular-rank">#{index + 1}</div>
-          <ul className="space-list-items">
-            <li>
-              <img
-                className="avatar"
-                src={repo.owner.avatar_url}
-                alt={"Avatar for " + repo.owner.login}
-              />
-            </li>
-            <li><a href={repo.html_url}>{repo.name}</a></li>
-            <li>@{repo.owner.login}</li>
-            <li>{repo.stargazers_count} stars</li>
-          </ul>
-        </li>
-      )
-    })}
-  </ul>
-);
-
-RepoGrid.propTypes = {
-  repos: PropTypes.array.isRequired
-}
-
-class Popular extends React.Component {
+class RepoGrid extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedLanguage: "All"
-    };
+      selectedLanguage: props.language,
+      repos: []
+    }
 
-    this.updateLanguage = this.updateLanguage.bind(this);
+    // console.log(props);
+
+    // this.updateLanguage = this.updateLanguage.bind(this);
   }
 
-  componentDidMount() {
-    this.updateLanguage(this.state.selectedLanguage);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      selectedLanguage: nextProps.language
+    }
   }
 
-  updateLanguage(language) {
-    this.setState(() => ({ selectedLanguage: language, repos: null }));
+  // shouldComponentUpdate(nextProps, prevState) {
+  //   // console.log(nextProps.language);
+  //   // console.log(prevState.selectedLanguage);
+  //   // console.log(nextProps.language !== prevState.selectedLanguage);
+  //   return(nextProps.language !== prevState.selectedLanguage);
+  // }
 
-    GithubConnector.fetchPopularRepos(language)
-      .then((repos) => {
-        this.setState(() => ({repos}))
-      });
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState);
+    console.log(this.state);
+    // this.setState({selectedLanguage: prevProps.language, repos: [1,2]});
+
+    if (this.state.selectedLanguage !== prevState.selectedLanguage) {
+      this.setState({repos: []});
+      GithubConnector.fetchPopularRepos(this.state.selectedLanguage)
+        .then((repos) => {
+          this.setState({repos: repos});
+        });
+    }
   }
+
+  // updateRepos
 
   render() {
+    if (this.state.repos.length === 0) return (<p>Loading</p>);
     return (
-      <div>
-        <SelectLanguage
-          selectedLanguage={this.state.selectedLanguage}
-          onSelect={this.updateLanguage} />
-        {this.state.repos
-          ? <RepoGrid
-              repos={this.state.repos} />
-          :
-            <p className="loading">Loading...</p>}
-      </div>
+      <ul className="popular-list">
+        {this.state.repos.map((repo, index) => (
+          <li key={repo.name} className="popular-item">
+            <div className="popular-rank">#{index + 1}</div>
+            <ul className="space-list-items">
+              <li>
+                <img
+                  className="avatar"
+                  src={repo.owner.avatar_url}
+                  alt={"Avatar for " + repo.owner.login}
+                />
+              </li>
+              <li><a href={repo.html_url}>{repo.name}</a></li>
+              <li>@{repo.owner.login}</li>
+              <li>{repo.stargazers_count} stars</li>
+            </ul>
+          </li>
+        ))}
+      </ul>
     )
   }
 }
+
+const Popular = ({match}) => (
+  <div>
+    <h2>{match.params.language}</h2>
+    <SelectLanguage />
+    <RepoGrid language={match.params.language} />
+  </div>
+)
 
 export default Popular;
