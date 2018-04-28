@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import GithubConnector from "../utils/github-connector";
+import Repo from "./Repo";
 
 class RepoGrid extends React.Component {
   constructor(props) {
@@ -41,28 +42,14 @@ class RepoGrid extends React.Component {
 
   render() {
     if (this.state.repos.length === 0) {
-      return (<p className="loading">Loading</p>);
+      return (<p className="loading">Loading...</p>);
     }
 
     return (
       <ul className="popular-list">
         {
           this.state.repos.map((repo, index) => (
-            <li key={repo.name} className="popular-item">
-              <div className="popular-rank">#{index + 1}</div>
-              <ul className="space-list-items">
-                <li>
-                  <img
-                    className="avatar"
-                    src={repo.owner.avatar_url}
-                    alt={"Avatar for " + repo.owner.login}
-                  />
-                </li>
-                <li><a href={repo.html_url}>{repo.name}</a></li>
-                <li>@{repo.owner.login}</li>
-                <li>{repo.stargazers_count} stars</li>
-              </ul>
-            </li>
+            <Repo repo={repo} rank={index} key={index + 1} />
           ))
         }
       </ul>
@@ -71,7 +58,7 @@ class RepoGrid extends React.Component {
 }
 
 RepoGrid.propTypes = {
-  language: PropTypes.string  
+  language: PropTypes.string
 }
 
 export default RepoGrid;
