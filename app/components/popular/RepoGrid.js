@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import GithubConnector from "../utils/github-connector";
+import GithubConnector from "../../utils/github-connector";
 import Repo from "./Repo";
 
 class RepoGrid extends React.Component {

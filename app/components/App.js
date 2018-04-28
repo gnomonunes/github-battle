@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, NavLink, Switch } from "react-router-do
 import PropTypes from "prop-types";
 import Navigation from "./Navigation";
 import Home from "./Home";
-import Battle from "./Battle";
-import Popular from "./Popular";
+import Battle from "./battle/Battle";
+import Popular from "./popular/Popular";
 
 class App extends React.Component {
   render() {
