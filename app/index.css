@@ -93,6 +93,7 @@ li {
 
 .navigation {
   display: flex;
+  font-weight: bold;
 }
 
 .navigation li {
@@ -100,5 +101,5 @@ li {
 }
 
 .active {
-  font-weight: bold;
+  color: #000000;
 }
