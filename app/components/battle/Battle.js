@@ -1,8 +1,10 @@
 import React from "react";
+import Player from "./Player";
 
 const Battle = (props) => (
-  <div>
-    Battle!
+  <div className="row">
+    <Player label="Player One" />
+    <Player label="Player Two" />
   </div>
 );
 
