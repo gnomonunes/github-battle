@@ -1,13 +1,13 @@
 import React from "react";
-import Player from "./Player";
 import PlayerForm from "./PlayerForm";
+import PlayerPreview from "./PlayerPreview";
 
 class Battle extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      playersOne: {
+      playerOne: {
         username: null,
         image: null
       },
@@ -32,16 +32,23 @@ class Battle extends React.Component {
   render() {
     return (
       <div className="row">
-        <PlayerForm
-            id="playersOne" label="Player One"
-            onSubmit={this.handleSubmit} />
-        <PlayerForm
-            id="playersTwo" label="Player Two"
-            onSubmit={this.handleSubmit} />
+        {!this.state.playerOne.username ?
+          <PlayerForm
+              id="playerOne" label="Player One"
+              onSubmit={this.handleSubmit} />
+          :
+          <PlayerPreview username={this.state.playerOne.username} />
+        }
+        {!this.state.playerTwo.username ?
+          <PlayerForm
+              id="playerTwo" label="Player Two"
+              onSubmit={this.handleSubmit} />
+          :
+          <PlayerPreview username={this.state.playerTwo.username} />
+        }
       </div>
     );
   }
 }
-
 
 export default Battle;
