@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Navigation from "./Navigation";
 import Home from "./Home";
 import Battle from "./battle/Battle";
+import Results from "./battle/Results";
 import Popular from "./popular/Popular";
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/battle" component={Battle} />
+            <Route exact path="/battle/results" component={Results} />
             <Route exact path="/popular" component={Popular} />
             <Route exact path="/popular/:language" component={Popular} />
             <Route render={() => (<p>Not Found</p>)} />
