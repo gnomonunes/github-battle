@@ -20,7 +20,7 @@ class PlayerForm extends React.Component {
 
   handleSumit(event) {
     event.preventDefault();
-    
+
     this.props.onSubmit(this.props.id, this.state.username);
   }
 
