@@ -24,6 +24,12 @@ const repos = (username) => {
     .then(response => response.data);
 }
 
+const starCount = (repos) => {
+  return repos.reduce((count, repo) => {
+    return count + repo['stargazers_count']
+  }, 0);
+}
+
 const get = (uri) => {
   const encodedUri = window.encodeURI(uri);
 
@@ -35,7 +41,7 @@ const GithubConnector = {
     usernames.map(username => {
       userData(username)
         .then((user) => {
-          console.log(user);
+          console.log(starCount(user['repos']));
         })
     })
   },
