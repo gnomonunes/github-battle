@@ -7,9 +7,12 @@ const userData = (username) => {
     profile(username),
     repos(username)
   ]).then(data => {
+    const profile = data[0];
+    const repos = data[1];
+
     return {
-      profile: data[0],
-      repos: data[1]
+      profile: profile,
+      score: score(profile, repos)
     }
   })
 }
@@ -24,10 +27,21 @@ const repos = (username) => {
     .then(response => response.data);
 }
 
+const score = (profile, repos) => {
+  const followers = profile.followers;
+  const totalStars = starCount(repos);
+
+  return (followers * 3) + totalStars;
+}
+
 const starCount = (repos) => {
   return repos.reduce((count, repo) => {
-    return count + repo['stargazers_count']
+    return count + repo['stargazers_count'];
   }, 0);
+}
+
+const sortPlayers = (players) => {
+  return players.sort((playerA, playerB) => (playerB.score - playerA.score))
 }
 
 const get = (uri) => {
@@ -36,14 +50,25 @@ const get = (uri) => {
   return axios.get(uri);
 }
 
+const handleError = (error) => {
+  console.warn(error);
+  return null;
+}
+
 const GithubConnector = {
   battle: (usernames) => {
-    usernames.map(username => {
-      userData(username)
-        .then((user) => {
-          console.log(starCount(user['repos']));
-        })
-    })
+
+    return axios.all(usernames.map(userData))
+      .then(sortPlayers)
+      .catch(handleError);
+
+    // return axios.all(usernames,map)
+    // usernames.map(username => {
+    //   userData(username)
+    //     .then((user) => {
+    //       console.log(user);
+    //     })
+    // })
   },
   fetchPopularRepos: (language) => {
     return get(`${apiUrl}/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
