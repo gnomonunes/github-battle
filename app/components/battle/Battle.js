@@ -60,9 +60,13 @@ class Battle extends React.Component {
             :
             <PlayerPreview
               avatar={this.state.playerOne.avatar}
-              username={this.state.playerOne.username}
-              onReset={this.handleReset}
-              id="playerOne" />
+              username={this.state.playerOne.username}>
+              <button
+                className='reset'
+                onClick={this.handleReset.bind(null, 'playerOne')}>
+                  Reset
+              </button>
+            </PlayerPreview>
           }
           {!this.state.playerTwo.username ?
             <PlayerForm
@@ -71,9 +75,14 @@ class Battle extends React.Component {
             :
             <PlayerPreview
               avatar={this.state.playerTwo.avatar}
-              username={this.state.playerTwo.username}
-              onReset={this.handleReset}
-              id="playerTwo" />
+              username={this.state.playerTwo.username}>
+              <button
+                className='reset'
+                onClick={this.handleReset.bind(null, 'playerTwo')}>
+                  Reset
+              </button>
+            </PlayerPreview>
+
           }
         </div>
 

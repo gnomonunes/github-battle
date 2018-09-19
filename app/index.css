@@ -7,12 +7,6 @@ body {
   margin: 0 auto;
 }
 
-.loading {
-  color: #aaa9a9;
-  text-align: center;
-  margin-top: 100px;
-}
-
 a {
   text-decoration: none;
   color: #d0021b;
@@ -91,17 +85,16 @@ li {
   align-items: center;
 }
 
-.navigation {
+.nav {
   display: flex;
-  font-weight: bold;
 }
 
-.navigation li {
+.nav li {
   margin-right: 15px;
 }
 
 .active {
-  color: #000000;
+  font-weight: bold;
 }
 
 .row {
