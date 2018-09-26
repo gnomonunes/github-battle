@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import GithubConnector from "../../utils/github-connector";
 import Repo from "./Repo";
+import Loading from "../layout/Loading";
 
 class RepoGrid extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class RepoGrid extends React.Component {
 
   render() {
     if (this.state.repos.length === 0) {
-      return (<p className="loading">Loading...</p>);
+      return <Loading />
     }
 
     return (

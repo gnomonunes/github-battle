@@ -2,6 +2,7 @@ import React from "react";
 import GithubConnector from "../../utils/github-connector";
 import PropTypes from "prop-types";
 import PlayerPreview from "./PlayerPreview";
+import Loading from "../layout/Loading";
 
 const parseUsernames = (searchString) => {
   const playersRegex = /\?playerOneUsername=(?<playerOne>\w+)&playerTwoUsername=(?<playerTwo>\w+)/;
@@ -11,7 +12,7 @@ const parseUsernames = (searchString) => {
 
 const Profile = (props) => {
   var info = props.info;
-  
+
   return (
     <PlayerPreview username={info.login} avatar={info.avatar_url}>
       <ul className='space-list-items'>
@@ -67,7 +68,7 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading === true) {
-      return <div>Loading...</div>
+        return <Loading />
     }
 
     return (
