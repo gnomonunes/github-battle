@@ -7,6 +7,10 @@ import Battle from "./battle/Battle";
 import Results from "./battle/Results";
 import Popular from "./popular/Popular";
 
+import GithubGraphQL from "../utils/github-graphql";
+
+GithubGraphQL.test();
+
 class App extends React.Component {
   render() {
     return (
