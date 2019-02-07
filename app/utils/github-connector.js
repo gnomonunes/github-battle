@@ -57,18 +57,9 @@ const handleError = (error) => {
 
 const GithubConnector = {
   battle: (usernames) => {
-
     return axios.all(usernames.map(userData))
       .then(sortPlayers)
       .catch(handleError);
-
-    // return axios.all(usernames,map)
-    // usernames.map(username => {
-    //   userData(username)
-    //     .then((user) => {
-    //       console.log(user);
-    //     })
-    // })
   },
   fetchPopularRepos: (language) => {
     return get(`${apiUrl}/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
