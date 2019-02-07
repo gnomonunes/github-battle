@@ -4,7 +4,7 @@ import gql from "graphql-tag"
 const client = new ApolloClient({
   uri: "https://api.github.com/graphql",
   headers: {
-    Authorization: "bearer 40d34f73969d8625aba96ea26a683f00023f121a"
+    Authorization: "bearer {auth}"
   }
 })
 
