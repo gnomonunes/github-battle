@@ -8,13 +8,13 @@ const Repo = (props) => (
       <li>
         <img
           className="avatar"
-          src={props.repo.owner.avatar_url}
+          src={props.repo.owner.avatarUrl}
           alt={`Avatar for ${props.repo.owner.login}`}
         />
       </li>
-      <li><a href={props.repo.html_url}>{props.repo.name}</a></li>
+      <li><a href={props.repo.url}>{props.repo.name}</a></li>
       <li>@{props.repo.owner.login}</li>
-      <li>{props.repo.stargazers_count} stars</li>
+      <li>{props.repo.stargazers.totalCount} stars</li>
     </ul>
   </li>
 )

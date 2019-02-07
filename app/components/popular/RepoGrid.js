@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import GithubConnector from "../../utils/github-connector";
+import GithubGraphQL from "../../utils/github-graphql";
 import Repo from "./Repo";
 import Loading from "../layout/Loading";
 
@@ -35,7 +36,7 @@ class RepoGrid extends React.Component {
 
     const language = this.state.selectedLanguage || 'All';
 
-    GithubConnector.fetchPopularRepos(language)
+    GithubGraphQL.fetchPopularRepos(language)
       .then((repos) => {
         this.setState({repos: repos});
       });

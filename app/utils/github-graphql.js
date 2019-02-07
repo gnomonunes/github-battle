@@ -9,6 +9,33 @@ const client = new ApolloClient({
 })
 
 const GithubGraphQL = {
+  fetchPopularRepos: (language) => {
+    return client.query({
+      query: gql`{
+        search(query: "language:${language} stars:>1 sort:stars-desc", type: REPOSITORY, first: 20) {
+          edges {
+            node {
+              ... on Repository {
+                name
+                url
+                stargazers {
+                  totalCount
+                }
+                owner {
+                  login
+                  avatarUrl
+                }
+              }
+            }
+          }
+        }
+      }`
+    })
+    .then(result => (
+      result.data.search.edges.map(edge => edge.node)
+    ))
+  },
+
   test: () => {
 
     client
